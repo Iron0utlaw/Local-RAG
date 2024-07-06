@@ -52,6 +52,35 @@ Jupyter Notebook
 jupyter notebook
 ```
 
+## Guide
+### Ask Function
+```
+ask(query, return_context)
+```
+- query -> Input to LLM
+- return_context -> Boolean value, will return context as output if True
+
+### Customization Aspects
+``` python
+llm_model.generate(**input_ids,
+                                 temperature=0.7, # lower temperature = more deterministic outputs, higher temperature = more creative outputs
+                                 do_sample=True, # whether or not to use sampling, see https://huyenchip.com/2024/01/16/sampling.html for more
+                                 min_length=512, # minimum length of answer generated
+                                max_new_tokens=1024) # how many new tokens to generate from prompt
+```
+
+``` python
+base_prompt = """Based on the following context items, please answer the query.
+                        Give yourself room to think by extracting relevant passages from the context before answering the query.
+                        Don't return the thinking, only return the answer.
+                        Make sure your answers are as explanatory as possible.
+                        \nNow use the following context items to answer the user query:
+                        {context}
+                        \nRelevant passages: <extract relevant passages from the context here>
+                        User query: {query}
+                        Answer:"""
+```
+
 ## What is it?
 
 - Basically it is used for providing context to LLM which further utilizes it to generate output
